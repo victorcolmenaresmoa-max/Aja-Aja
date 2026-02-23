@@ -1,78 +1,253 @@
 <!DOCTYPE html>
+
 <html lang="es">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>¿Me regalas 100$?</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Eres el negro mas negro de la historia, tan negro que si sales a la calle oscureses todo</title>
+
     <style>
+
         body {
+
             display: flex;
+
             justify-content: center;
+
             align-items: center;
+
             height: 100vh;
+
             margin: 0;
+
             background-color: #ffebee;
+
             font-family: 'Arial', sans-serif;
+
             text-align: center;
-            overflow: hidden; /* Evita que la pantalla se mueva cuando el botón huye */
-            touch-action: manipulation;
+
+            overflow: hidden;
+
         }
+
+
 
         .container {
+
             background: white;
-            padding: 25px;
+
+            padding: 30px;
+
             border-radius: 20px;
+
             box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-            width: 85%;
-            max-width: 350px;
-            z-index: 1;
+
+            position: relative;
+
+            width: 350px;
+
         }
+
+
 
         img {
-            width: 160px;
+
+            width: 200px;
+
             border-radius: 10px;
+
         }
+
+
 
         h1 {
+
             color: #d32f2f;
-            font-size: 22px;
-            margin: 20px 0;
+
+            font-size: 24px;
+
         }
 
-        .buttons-wrapper {
+
+
+        .buttons {
+
             display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 15px; /* Espacio inicial entre botones */
-            margin-top: 10px;
-            min-height: 150px; /* Espacio para que el Sí crezca sin mover todo */
+
+            justify-content: space-around;
+
+            margin-top: 20px;
+
+            position: relative;
+
+            height: 60px;
+
         }
+
+
 
         button {
-            padding: 12px 25px;
+
+            padding: 10px 25px;
+
             font-size: 18px;
-            font-weight: bold;
+
             cursor: pointer;
+
             border: none;
-            border-radius: 12px;
-            transition: transform 0.2s ease;
+
+            border-radius: 8px;
+
+            transition: all 0.2s ease;
+
         }
+
+
 
         #btnSi {
+
             background-color: #4caf50;
+
             color: white;
-            z-index: 100; /* Siempre por encima */
+
+            z-index: 10;
+
         }
+
+
 
         #btnNo {
+
             background-color: #f44336;
+
             color: white;
-            z-index: 99;
-            /* Eliminamos 'position: absolute' de aquí para que sea visible al inicio */
+
+            position: absolute;
+
+            right: 40px;
+
         }
+
+
+
+        /* Clase para el mensaje final */
+
+        .hidden {
+
+            display: none;
+
+        }
+
     </style>
+
 </head>
+
 <body>
 
+
+
     <div class="container" id="mainCard">
-        <img src="
+
+        <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExYTA0c2ptZTNjZDJjZTU1ZjFqbzIxbWVzZG14dzZyeWgwZmN5d3I5cSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/hjvBoWTABwwNi/giphy.gif" alt="Minion" id="minionImg">
+
+        <h1 id="pregunta">Eres el negro mas negro de la historia, tan negro que si sales a la calle oscureses todo</h1>
+
+        
+
+        <div class="buttons" id="btnGroup">
+
+            <button id="btnSi">Sí</button>
+
+            <button id="btnNo">No</button>
+
+        </div>
+
+    </div>
+
+
+
+   <script>
+
+        const btnSi = document.getElementById('btnSi');
+
+        const btnNo = document.getElementById('btnNo');
+
+        const mainCard = document.getElementById('mainCard');
+
+
+
+        let scaleSi = 1;
+
+        let scaleNo = 1; // Nueva variable para el tamaño del botón NO
+
+
+
+        btnNo.addEventListener('mouseover', () => {
+
+            // 1. Mover el botón NO a una posición aleatoria
+
+            const x = Math.random() * (window.innerWidth - btnNo.offsetWidth);
+
+            const y = Math.random() * (window.innerHeight - btnNo.offsetHeight);
+
+            
+
+            btnNo.style.position = 'fixed';
+
+            btnNo.style.left = x + 'px';
+
+            btnNo.style.top = y + 'px';
+
+
+
+            // 2. Hacer que el botón SÍ crezca
+
+            scaleSi += 0.3;
+
+            btnSi.style.transform = `scale(${scaleSi})`;
+
+
+
+            // 3. Hacer que el botón NO se reduzca
+
+            if (scaleNo > 0) {
+
+                scaleNo -= 0.15; // Se reduce un 15% cada vez
+
+                // Si el valor es muy bajo, lo forzamos a 0 para que desaparezca
+
+                if (scaleNo < 0.1) scaleNo = 0; 
+
+                btnNo.style.transform = `scale(${scaleNo})`;
+
+            }
+
+        });
+
+
+
+        // Evento final cuando aceptan
+
+        btnSi.addEventListener('click', () => {
+
+            mainCard.innerHTML = `
+
+                <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExY2pucG1lc2o5bnY0dDl4Y3pyazFxZ3NxbzExZ3QzajFxamRvdWNiZCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/c4ijLLteGHcas/giphy.gif" style="width:100%">
+
+                <h1>Ahhh, viste que si eres. Negro gei</h1>
+
+            `;
+
+            document.body.style.backgroundColor = '#ffcdd2';
+
+        });
+
+    </script>
+
+</body>
+
+</html>
