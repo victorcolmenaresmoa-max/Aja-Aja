@@ -84,20 +84,16 @@
         </div>
     </div>
 
-    <script>
+   <script>
         const btnSi = document.getElementById('btnSi');
         const btnNo = document.getElementById('btnNo');
         const mainCard = document.getElementById('mainCard');
-        const minionImg = document.getElementById('minionImg');
-        const pregunta = document.getElementById('pregunta');
-        const btnGroup = document.getElementById('btnGroup');
 
         let scaleSi = 1;
-        let noClickCount = 0;
+        let scaleNo = 1; // Nueva variable para el tamaño del botón NO
 
-        // 1. Efecto: Cuando intentas darle a NO, el SÍ crece
         btnNo.addEventListener('mouseover', () => {
-            // Mover el botón NO a un lugar aleatorio
+            // 1. Mover el botón NO a una posición aleatoria
             const x = Math.random() * (window.innerWidth - btnNo.offsetWidth);
             const y = Math.random() * (window.innerHeight - btnNo.offsetHeight);
             
@@ -105,23 +101,25 @@
             btnNo.style.left = x + 'px';
             btnNo.style.top = y + 'px';
 
-            // Hacer que el botón SÍ crezca
-            scaleSi += 0.4;
+            // 2. Hacer que el botón SÍ crezca
+            scaleSi += 0.3;
             btnSi.style.transform = `scale(${scaleSi})`;
+
+            // 3. Hacer que el botón NO se reduzca
+            if (scaleNo > 0) {
+                scaleNo -= 0.15; // Se reduce un 15% cada vez
+                // Si el valor es muy bajo, lo forzamos a 0 para que desaparezca
+                if (scaleNo < 0.1) scaleNo = 0; 
+                btnNo.style.transform = `scale(${scaleNo})`;
+            }
         });
 
-        // 2. Si logran darle click al NO (por error o persistencia)
-        btnNo.addEventListener('click', () => {
-            alert("¡Error 404! Esa opción no está disponible 😉");
-        });
-
-        // 3. Cuando le dan a SÍ
+        // Evento final cuando aceptan
         btnSi.addEventListener('click', () => {
             mainCard.innerHTML = `
-                <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNXB4M3B4M3B4M3B4M3B4M3B4M3B4M3B4M3B4M3B4M3B4JmFjdGlvbj1jbGljayZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l41lH4ADRtAYnGsLe/giphy.gif" style="width:100%">
-                <h1>¡YAYYYY! Sabía que dirías que sí</h1>
+                <img src="https://media.giphy.com/media/l41lH4ADRtAYnGsLe/giphy.gif" style="width:100%">
+                <h1>¡SABÍA QUE DIRÍAS QUE SÍ! ❤️</h1>
             `;
-            // Lanzar confeti o cambios de fondo si quisieras
             document.body.style.backgroundColor = '#ffcdd2';
         });
     </script>
