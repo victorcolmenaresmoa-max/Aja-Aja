@@ -3,45 +3,126 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>¿Quieres ser mi San Valentín?</title>
+    <title>Me regalarias 100$ en efectivo?</title>
     <style>
-        body { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; font-family: 'Arial', sans-serif; background-color: #ffe4e1; overflow: hidden; }
-        .container { text-align: center; }
-        h1 { color: #d00000; }
-        .btn-container { margin-top: 20px; position: relative; width: 100%; height: 100px; }
-        button { padding: 15px 30px; font-size: 1.2rem; cursor: pointer; border-radius: 10px; border: none; transition: 0.3s; }
-        #siBtn { background-color: #4caf50; color: white; margin-right: 10px; }
-        #noBtn { background-color: #f44336; color: white; position: absolute; }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #ffebee;
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            position: relative;
+            width: 350px;
+        }
+
+        img {
+            width: 200px;
+            border-radius: 10px;
+        }
+
+        h1 {
+            color: #d32f2f;
+            font-size: 24px;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+            position: relative;
+            height: 60px;
+        }
+
+        button {
+            padding: 10px 25px;
+            font-size: 18px;
+            cursor: pointer;
+            border: none;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+
+        #btnSi {
+            background-color: #4caf50;
+            color: white;
+            z-index: 10;
+        }
+
+        #btnNo {
+            background-color: #f44336;
+            color: white;
+            position: absolute;
+            right: 40px;
+        }
+
+        /* Clase para el mensaje final */
+        .hidden {
+            display: none;
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <img id="minion" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHZ6ZGRpZzB4bm92bm00ZzR3bm8wd2R6ZzR3bm8wd2R6ZzR3bm8wd2R6JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/129N6e8N38h3Py/giphy.gif" width="200">
-        <h1>Me regalas 100$ en efectivo?</h1>
-        <div class="btn-container">
-            <button id="siBtn">SÍ</button>
-            <button id="noBtn">NO</button>
+
+    <div class="container" id="mainCard">
+        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHIyeGZ1NmZ4eXJ5eXJ5eXJ5eXJ5eXJ5eXJ5eXJ5eXJ5eXJ5JmFjdGlvbj1jbGljayZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/iS99GvK8pIsBv7FvYF/giphy.gif" alt="Minion" id="minionImg">
+        <h1 id="pregunta">Me regalas 100$ en efectivo?</h1>
+        
+        <div class="buttons" id="btnGroup">
+            <button id="btnSi">Sí</button>
+            <button id="btnNo">No</button>
         </div>
     </div>
 
     <script>
-        const noBtn = document.getElementById('noBtn');
-        const siBtn = document.getElementById('siBtn');
+        const btnSi = document.getElementById('btnSi');
+        const btnNo = document.getElementById('btnNo');
+        const mainCard = document.getElementById('mainCard');
+        const minionImg = document.getElementById('minionImg');
+        const pregunta = document.getElementById('pregunta');
+        const btnGroup = document.getElementById('btnGroup');
 
-        // El botón NO se mueve al pasar el mouse o tocarlo
-        noBtn.addEventListener('mouseover', moverBoton);
-        noBtn.addEventListener('touchstart', moverBoton);
+        let scaleSi = 1;
+        let noClickCount = 0;
 
-        function moverBoton() {
-            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
-            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
-            noBtn.style.left = `${x}px`;
-            noBtn.style.top = `${y}px`;
-        }
+        // 1. Efecto: Cuando intentas darle a NO, el SÍ crece
+        btnNo.addEventListener('mouseover', () => {
+            // Mover el botón NO a un lugar aleatorio
+            const x = Math.random() * (window.innerWidth - btnNo.offsetWidth);
+            const y = Math.random() * (window.innerHeight - btnNo.offsetHeight);
+            
+            btnNo.style.position = 'fixed';
+            btnNo.style.left = x + 'px';
+            btnNo.style.top = y + 'px';
 
-        siBtn.addEventListener('click', () => {
-            alert('¡SABÍA QUE DIRÍAS QUE SÍ! 😍');
-            document.body.innerHTML = '<h1>Que feliz estoy!</h1><img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNXA1bmZ4bm92bm00ZzR3bm8wd2R6ZzR3bm8wd2R6ZzR3bm8wd2R6JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/l41lH4ADRtAYnGsLe/giphy.gif">';
+            // Hacer que el botón SÍ crezca
+            scaleSi += 0.4;
+            btnSi.style.transform = `scale(${scaleSi})`;
+        });
+
+        // 2. Si logran darle click al NO (por error o persistencia)
+        btnNo.addEventListener('click', () => {
+            alert("¡Error 404! Esa opción no está disponible 😉");
+        });
+
+        // 3. Cuando le dan a SÍ
+        btnSi.addEventListener('click', () => {
+            mainCard.innerHTML = `
+                <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNXB4M3B4M3B4M3B4M3B4M3B4M3B4M3B4M3B4M3B4M3B4JmFjdGlvbj1jbGljayZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l41lH4ADRtAYnGsLe/giphy.gif" style="width:100%">
+                <h1>¡YAYYYY! Sabía que dirías que sí</h1>
+            `;
+            // Lanzar confeti o cambios de fondo si quisieras
+            document.body.style.backgroundColor = '#ffcdd2';
         });
     </script>
 </body>
