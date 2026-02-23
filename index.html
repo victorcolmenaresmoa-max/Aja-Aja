@@ -2,8 +2,8 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Me regalarias 100$ en efectivo?</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>¿Me regalas 100$?</title>
     <style>
         body {
             display: flex;
@@ -15,6 +15,7 @@
             font-family: 'Arial', sans-serif;
             text-align: center;
             overflow: hidden;
+            touch-action: manipulation;
         }
 
         .container {
@@ -23,52 +24,53 @@
             border-radius: 20px;
             box-shadow: 0 10px 20px rgba(0,0,0,0.1);
             position: relative;
-            width: 350px;
+            width: 80%;
+            max-width: 350px;
+            z-index: 1;
         }
 
         img {
-            width: 200px;
+            width: 180px;
             border-radius: 10px;
         }
 
         h1 {
             color: #d32f2f;
-            font-size: 24px;
+            font-size: 22px;
+            margin: 20px 0;
         }
 
         .buttons {
             display: flex;
-            justify-content: space-around;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
             margin-top: 20px;
-            position: relative;
-            height: 60px;
+            min-height: 100px;
         }
 
         button {
-            padding: 10px 25px;
+            padding: 12px 25px;
             font-size: 18px;
+            font-weight: bold;
             cursor: pointer;
             border: none;
-            border-radius: 8px;
-            transition: all 0.2s ease;
+            border-radius: 12px;
+            transition: transform 0.2s ease;
+            touch-action: none; /* Evita que el celular haga scroll al tocar */
         }
 
         #btnSi {
             background-color: #4caf50;
             color: white;
-            z-index: 10;
+            z-index: 999;
         }
 
         #btnNo {
             background-color: #f44336;
             color: white;
-            position: absolute;
-            right: 40px;
-        }
-
-        /* Clase para el mensaje final */
-        .hidden {
-            display: none;
+            position: relative;
+            z-index: 998;
         }
     </style>
 </head>
@@ -76,52 +78,7 @@
 
     <div class="container" id="mainCard">
         <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExYTA0c2ptZTNjZDJjZTU1ZjFqbzIxbWVzZG14dzZyeWgwZmN5d3I5cSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/hjvBoWTABwwNi/giphy.gif" alt="Minion" id="minionImg">
-        <h1 id="pregunta">Me regalas 100$ en efectivo?</h1>
+        <h1 id="pregunta">¿Me regalas 100$ en efectivo? 💵</h1>
         
-        <div class="buttons" id="btnGroup">
-            <button id="btnSi">Sí</button>
-            <button id="btnNo">No</button>
-        </div>
-    </div>
-
-   <script>
-        const btnSi = document.getElementById('btnSi');
-        const btnNo = document.getElementById('btnNo');
-        const mainCard = document.getElementById('mainCard');
-
-        let scaleSi = 1;
-        let scaleNo = 1; // Nueva variable para el tamaño del botón NO
-
-        btnNo.addEventListener('mouseover', () => {
-            // 1. Mover el botón NO a una posición aleatoria
-            const x = Math.random() * (window.innerWidth - btnNo.offsetWidth);
-            const y = Math.random() * (window.innerHeight - btnNo.offsetHeight);
-            
-            btnNo.style.position = 'fixed';
-            btnNo.style.left = x + 'px';
-            btnNo.style.top = y + 'px';
-
-            // 2. Hacer que el botón SÍ crezca
-            scaleSi += 0.3;
-            btnSi.style.transform = `scale(${scaleSi})`;
-
-            // 3. Hacer que el botón NO se reduzca
-            if (scaleNo > 0) {
-                scaleNo -= 0.15; // Se reduce un 15% cada vez
-                // Si el valor es muy bajo, lo forzamos a 0 para que desaparezca
-                if (scaleNo < 0.1) scaleNo = 0; 
-                btnNo.style.transform = `scale(${scaleNo})`;
-            }
-        });
-
-        // Evento final cuando aceptan
-        btnSi.addEventListener('click', () => {
-            mainCard.innerHTML = `
-                <img src="https://media.giphy.com/media/l41lH4ADRtAYnGsLe/giphy.gif" style="width:100%">
-                <h1>¡SABÍA QUE DIRÍAS QUE SÍ! ❤️</h1>
-            `;
-            document.body.style.backgroundColor = '#ffcdd2';
-        });
-    </script>
-</body>
-</html>
+        <div class="buttons">
+            <button id="btnSi">Sí</button
