@@ -1,253 +1,129 @@
 <!DOCTYPE html>
-
 <html lang="es">
-
 <head>
-
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Eres el negro mas negro de la historia, tan negro que si sales a la calle oscureses todo</title>
-
-    <style>
-
-        body {
-
-            display: flex;
-
-            justify-content: center;
-
-            align-items: center;
-
-            height: 100vh;
-
-            margin: 0;
-
-            background-color: #ffebee;
-
-            font-family: 'Arial', sans-serif;
-
-            text-align: center;
-
-            overflow: hidden;
-
-        }
-
-
-
-        .container {
-
-            background: white;
-
-            padding: 30px;
-
-            border-radius: 20px;
-
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-
-            position: relative;
-
-            width: 350px;
-
-        }
-
-
-
-        img {
-
-            width: 200px;
-
-            border-radius: 10px;
-
-        }
-
-
-
-        h1 {
-
-            color: #d32f2f;
-
-            font-size: 24px;
-
-        }
-
-
-
-        .buttons {
-
-            display: flex;
-
-            justify-content: space-around;
-
-            margin-top: 20px;
-
-            position: relative;
-
-            height: 60px;
-
-        }
-
-
-
-        button {
-
-            padding: 10px 25px;
-
-            font-size: 18px;
-
-            cursor: pointer;
-
-            border: none;
-
-            border-radius: 8px;
-
-            transition: all 0.2s ease;
-
-        }
-
-
-
-        #btnSi {
-
-            background-color: #4caf50;
-
-            color: white;
-
-            z-index: 10;
-
-        }
-
-
-
-        #btnNo {
-
-            background-color: #f44336;
-
-            color: white;
-
-            position: absolute;
-
-            right: 40px;
-
-        }
-
-
-
-        /* Clase para el mensaje final */
-
-        .hidden {
-
-            display: none;
-
-        }
-
-    </style>
-
+    <title>MOA Materials Library</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script> 
 </head>
-
 <body>
 
+    <nav class="navbar">
+        <div class="logo">MOA Materials</div>
+        <ul class="nav-links">
+            <li><a href="#dashboard">Dashboard</a></li>
+            <li><a href="#library">Library</a></li>
+        </ul>
+        <button id="add-material-btn" class="cta-button">
+            <i class="fas fa-plus-circle"></i> Add New Material
+        </button>
+    </nav>
 
+    <main class="container">
+        <section id="dashboard">
+            <header class="dashboard-header">
+                <h1>Welcome, Materials Specialist</h1>
+            </header>
+        </section>
 
-    <div class="container" id="mainCard">
+        <section id="library">
+            <header class="library-header">
+                <h2>MOA Materials Library</h2>
+                <div class="search-filter-container">
+                    <input type="text" id="search-bar" placeholder="Search for materials...">
+                    <select id="filter-type">
+                        <option value="all">All Types</option>
+                        <option value="video">Video</option>
+                        <option value="audio">Audio</option>
+                        <option value="image">Image</option>
+                        <option value="document">Document</option>
+                    </select>
+                </div>
+            </header>
+            <div id="material-grid" class="material-grid"></div>
+        </section>
+    </main>
 
-        <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExYTA0c2ptZTNjZDJjZTU1ZjFqbzIxbWVzZG14dzZyeWgwZmN5d3I5cSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/hjvBoWTABwwNi/giphy.gif" alt="Minion" id="minionImg">
+    <div id="add-material-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" id="close-add-modal">&times;</span>
+            <h2>Add New Material</h2>
+            <form id="material-form">
+                <div class="form-group">
+                    <label for="material-title">Title</label>
+                    <input type="text" id="material-title" required>
+                </div>
+                <div class="form-group">
+                    <label for="material-upload">Upload File or Link</label>
+                    <input type="file" id="material-upload">
+                    <input type="text" id="material-link" placeholder="Or paste a link here">
+                </div>
+                <div class="form-group">
+                    <label for="material-type">Type of Activity</label>
+                    <select id="material-type" required>
+                        <option value="video">Video</option>
+                        <option value="audio">Audio</option>
+                        <option value="image">Image</option>
+                        <option value="document">Document</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="material-grade">Year/Grade</label>
+                    <select id="material-grade">
+                        <option value="1st Grade">1st Grade</option>
+                        <option value="2nd Grade">2nd Grade</option>
+                        <option value="3rd Grade">3rd Grade</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Format</label>
+                    <div class="radio-group">
+                        <input type="radio" id="individual" name="format" value="individual" checked>
+                        <label for="individual">Individual</label>
+                        <input type="radio" id="group" name="format" value="group">
+                        <label for="group">Group</label>
+                    </div>
+                </div>
 
-        <h1 id="pregunta">Eres el negro mas negro de la historia, tan negro que si sales a la calle oscureses todo</h1>
+                <div class="form-group" id="group-size-container">
+                    <label for="material-group-size">Group Size</label>
+                    <select id="material-group-size">
+                        <option value="">Select size...</option>
+                        <option value="3">Group of 3</option>
+                        <option value="4">Group of 4</option>
+                    </select>
+                </div>
 
-        
+                <div class="form-group" id="transcription-container">
+                    <label for="material-transcription">Transcription (for video/audio)</label>
+                    <textarea id="material-transcription" rows="5" placeholder="Enter transcription here..."></textarea>
+                </div>
 
-        <div class="buttons" id="btnGroup">
-
-            <button id="btnSi">Sí</button>
-
-            <button id="btnNo">No</button>
-
+                <button type="submit" class="submit-button">Save Material</button>
+            </form>
         </div>
-
     </div>
 
+    <div id="material-detail-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" id="close-detail-modal">&times;</span>
+            <h2 id="detail-title"></h2>
+            <div class="detail-thumbnail"></div>
+            <div class="detail-metadata">
+                <span class="tag" id="detail-type"></span>
+                <span class="tag" id="detail-grade"></span>
+                <span class="tag" id="detail-format"></span>
+            </div>
+            <div class="detail-section" id="detail-transcription-section">
+                <h3>Transcription</h3>
+                <p id="detail-transcription"></p>
+            </div>
+            <button id="go-to-material-btn" class="cta-button">Go to Material</button>
+        </div>
+    </div>
 
-
-   <script>
-
-        const btnSi = document.getElementById('btnSi');
-
-        const btnNo = document.getElementById('btnNo');
-
-        const mainCard = document.getElementById('mainCard');
-
-
-
-        let scaleSi = 1;
-
-        let scaleNo = 1; // Nueva variable para el tamaño del botón NO
-
-
-
-        btnNo.addEventListener('mouseover', () => {
-
-            // 1. Mover el botón NO a una posición aleatoria
-
-            const x = Math.random() * (window.innerWidth - btnNo.offsetWidth);
-
-            const y = Math.random() * (window.innerHeight - btnNo.offsetHeight);
-
-            
-
-            btnNo.style.position = 'fixed';
-
-            btnNo.style.left = x + 'px';
-
-            btnNo.style.top = y + 'px';
-
-
-
-            // 2. Hacer que el botón SÍ crezca
-
-            scaleSi += 0.3;
-
-            btnSi.style.transform = `scale(${scaleSi})`;
-
-
-
-            // 3. Hacer que el botón NO se reduzca
-
-            if (scaleNo > 0) {
-
-                scaleNo -= 0.8; // Se reduce un 15% cada vez
-
-                // Si el valor es muy bajo, lo forzamos a 0 para que desaparezca
-
-                if (scaleNo < 0.1) scaleNo = 0; 
-
-                btnNo.style.transform = `scale(${scaleNo})`;
-
-            }
-
-        });
-
-
-
-        // Evento final cuando aceptan
-
-        btnSi.addEventListener('click', () => {
-
-            mainCard.innerHTML = `
-
-                <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExY2pucG1lc2o5bnY0dDl4Y3pyazFxZ3NxbzExZ3QzajFxamRvdWNiZCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/c4ijLLteGHcas/giphy.gif" style="width:100%">
-
-                <h1>Ahhh, viste que si eres. Negro gei</h1>
-
-            `;
-
-            document.body.style.backgroundColor = '#ffcdd2';
-
-        });
-
-    </script>
-
+    <script src="script.js"></script>
 </body>
-
 </html>
